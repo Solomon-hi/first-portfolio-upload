@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Library Management Demo</title>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          Segoe UI,
+          Roboto,
+          Arial;
+        margin: 20px;
+      }
+      input,
+      button {
+        padding: 8px;
+        margin: 4px;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Library Management - Demo</h1>
+    <p>Add books, mark as borrowed/returned. Data stored in LocalStorage.</p>
+    <input id="title" placeholder="Book title" />
+    <input id="author" placeholder="Author" />
+    <button id="add">Add Book</button>
+    <ul id="list"></ul>
+    <script>
+      const list = document.getElementById("list");
+      const save = () =>
+        localStorage.setItem("library-demo", JSON.stringify(books));
+      let books = JSON.parse(localStorage.getItem("library-demo") || "[]");
+      const render = () => {
+        list.innerHTML = "";
+        books.forEach((b, i) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<strong>${b.title}</strong> by ${b.author} — <button data-i="${i}">${b.borrowed ? "Return" : "Borrow"}</button> <button data-del="${i}">Delete</button>`;
+          list.appendChild(li);
+        });
+      };
+      document.getElementById("add").onclick = () => {
+        const t = document.getElementById("title").value.trim();
+        const a = document.getElementById("author").value.trim();
+        if (!t || !a) return alert("Enter title and author");
+        books.push({ title: t, author: a, borrowed: false });
+        save();
+        render();
+      };
+      list.addEventListener("click", (e) => {
+        const btn = e.target;
+        if (btn.dataset.i !== undefined) {
+          books[btn.dataset.i].borrowed = !books[btn.dataset.i].borrowed;
+          save();
+          render();
+        }
+        if (btn.dataset.del !== undefined) {
+          books.splice(btn.dataset.del, 1);
+          save();
+          render();
+        }
+      });
+      render();
+    </script>
+  </body>
+</html>

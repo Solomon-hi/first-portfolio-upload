@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Task Tracker Demo</title>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          Segoe UI,
+          Roboto,
+          Arial;
+        margin: 20px;
+      }
+      input,
+      button {
+        padding: 8px;
+        margin: 4px;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Task Tracker - Demo</h1>
+    <p>Create and filter tasks. Data stored in LocalStorage.</p>
+    <input id="task" placeholder="New task" /> <button id="add">Add</button>
+    <div>
+      <button id="all">All</button> <button id="active">Active</button>
+      <button id="done">Done</button>
+    </div>
+    <ul id="list"></ul>
+    <script>
+      const list = document.getElementById("list");
+      let tasks = JSON.parse(localStorage.getItem("tasks-demo") || "[]");
+      const save = (_) =>
+        localStorage.setItem("tasks-demo", JSON.stringify(tasks));
+      const render = (filter = "all") => {
+        list.innerHTML = "";
+        tasks
+          .filter(
+            (t) =>
+              filter === "all" ||
+              (filter === "active" && !t.done) ||
+              (filter === "done" && t.done),
+          )
+          .forEach((t, i) => {
+            const li = document.createElement("li");
+            li.innerHTML = `<input type=checkbox ${t.done ? "checked" : ""} data-i="${i}" /> <span style="text-decoration:${t.done ? "line-through" : ""}">${t.text}</span> <button data-del="${i}">x</button>`;
+            list.appendChild(li);
+          });
+      };
+      document.getElementById("add").onclick = () => {
+        const v = document.getElementById("task").value.trim();
+        if (!v) return;
+        tasks.push({ text: v, done: false });
+        save();
+        render();
+        document.getElementById("task").value = "";
+      };
+      list.addEventListener("click", (e) => {
+        if (e.target.dataset.i !== undefined) {
+          tasks[e.target.dataset.i].done = !tasks[e.target.dataset.i].done;
+          save();
+          render();
+        }
+        if (e.target.dataset.del !== undefined) {
+          tasks.splice(e.target.dataset.del, 1);
+          save();
+          render();
+        }
+      });
+      document.getElementById("all").onclick = (_) => render("all");
+      document.getElementById("active").onclick = (_) => render("active");
+      document.getElementById("done").onclick = (_) => render("done");
+      render();
+    </script>
+  </body>
+</html>

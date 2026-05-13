@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Weather Dashboard Demo</title>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          Segoe UI,
+          Roboto,
+          Arial;
+        margin: 20px;
+      }
+      input,
+      button {
+        padding: 8px;
+        margin: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weather Dashboard - Demo</h1>
+    <p>
+      Uses a free public API (Open-Meteo) to show current temperature for a
+      chosen city.
+    </p>
+    <input id="city" placeholder="City (e.g., London)" />
+    <button id="get">Get Weather</button>
+    <pre id="out"></pre>
+    <script>
+      const out = document.getElementById("out");
+      const geo = async (q) => {
+        const res = await fetch(
+          "https://geocoding-api.open-meteo.com/v1/search?name=" +
+            encodeURIComponent(q),
+        );
+        const j = await res.json();
+        return j.results && j.results[0];
+      };
+      document.getElementById("get").onclick = async () => {
+        const city = document.getElementById("city").value.trim();
+        if (!city) return alert("Enter a city");
+        out.textContent = "Loading...";
+        const g = await geo(city);
+        if (!g) return (out.textContent = "City not found");
+        const lat = g.latitude,
+          lon = g.longitude;
+        const r = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`,
+        );
+        const j = await r.json();
+        out.textContent = `Location: ${g.name}, ${g.country}\nTemperature: ${j.current_weather.temperature}°C\nWind: ${j.current_weather.windspeed} km/h`;
+      };
+    </script>
+  </body>
+</html>
