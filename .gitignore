@@ -6,7 +6,7 @@ coverage/
 *.log
 .env*
 !.env.example
-public/assets/**
+## public/assets/** removed to allow image deployment
 .vscode/
 .idea/
 package-lock.json
