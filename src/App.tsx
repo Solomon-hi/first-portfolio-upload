@@ -398,7 +398,7 @@ export default function App() {
 
       <footer role="contentinfo">
         <div className="social-links" role="list">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="Visit my GitHub profile">
+          <a href="https://github.com/Solomon-hi/first-portfolio-upload" target="_blank" rel="noopener noreferrer" aria-label="View the portfolio source code on GitHub">
             <Github size={24} aria-hidden="true" />
           </a>
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Visit my LinkedIn profile">
