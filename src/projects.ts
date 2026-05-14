@@ -29,7 +29,7 @@ const projects: Project[] = [
     title: 'Weather Dashboard',
       shortDescription: 'Live weather insights with interactive forecasts',
       description: 'A visually engaging Weather Dashboard delivering real-time conditions, hourly and weekly forecasts, and interactive precipitation maps. Integrates public APIs, offline caching, and smart error handling. Features location search with autocomplete and a mobile-first, high-performance UI for fast, reliable weather updates anywhere.',
-      demoUrl: '/weather-demo.html',
+      demoUrl: 'https://solomon-hi.github.io/Weather-app/',
       repoUrl: "https://github.com/Solomon-hi/weather-app",
     imageUrl: 'https://images.unsplash.com/photo-1501973801540-537f08ccae7b?q=80&w=1470&auto=format&fit=crop',
     technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'OpenWeatherMap API'],
