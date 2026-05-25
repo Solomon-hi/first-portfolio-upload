@@ -41,7 +41,7 @@ const projects: Project[] = [
     title: 'Task Tracker Tool',
       shortDescription: 'Minimalist productivity app for efficient task management',
       description: 'A distraction-free Task Tracker designed for rapid task entry, organization, and completion. Supports intuitive drag-and-drop, keyboard shortcuts, persistent storage, and smart filtering by status or due date. Built for speed and simplicity, empowering users to stay organized and productive with minimal effort.',
-      demoUrl: 'https://first-portfolio-upload-95wa.vercel.app/',
+      demoUrl: 'https://solomon-task-tracker.vercel.app/',
       repoUrl: "https://github.com/Solomon-hi/task-tracker",
     imageUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1472&auto=format&fit=crop',
     technologies: ['Vanilla JS', 'LocalStorage', 'HTML5', 'CSS3'],
